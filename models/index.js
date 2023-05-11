@@ -31,6 +31,11 @@ Ticket.hasMany(Comment, {
 	onDelete: 'CASCADE',
 });
 
+// Ticket has one assigned_user_id
+Ticket.belongsTo(User, {
+	foreignKey: 'assigned_user_id',
+});
+
 // Comment belongs to Ticket
 Comment.belongsTo(Ticket, {
 	foreignKey: 'ticket_id',
