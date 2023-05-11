@@ -1,0 +1,39 @@
+/* sanitize styles */
+
+body {
+	background-color: #fff;
+	color: #333;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 14px;
+	line-height: 1.42857;
+	margin: 0;
+}
+
+a {
+	color: #08c;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #005580;
+	text-decoration: underline;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: #333;
+	font-family: inherit;
+	font-weight: 500;
+	line-height: 1.1;
+	margin: 0 0 10px;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}

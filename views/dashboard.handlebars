@@ -1,0 +1,17 @@
+{{! render all the tickets in an unordered list for now }}
+<ul>
+	{{log tickets}}
+	{{#each tickets as |ticket|}}
+		<li>
+			<h2>
+				{{ticket.title}}
+			</h2>
+			<p>
+				{{ticket.description}}
+			</p>
+			<p>
+				Created by: {{ticket.creator.name}}
+			</p>
+		</li>
+	{{/each}}
+</ul>

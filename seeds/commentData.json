@@ -1,0 +1,12 @@
+[
+	{
+		"comment_text": "This is a comment",
+		"ticket_id": 1,
+		"user_id": 1
+	},
+	{
+		"comment_text": "This is also a comment",
+		"ticket_id": 1,
+		"user_id": 2
+	}
+]

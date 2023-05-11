@@ -3,7 +3,7 @@ const { Ticket } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 // Get all tickets
-router.get('/', withAuth, async (req, res) => {
+router.get('/', async (req, res) => {
 	try {
 		const ticketData = await Ticket.findAll();
 		res.status(200).json(ticketData);

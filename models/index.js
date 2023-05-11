@@ -5,12 +5,20 @@ const Role = require('./Role');
 
 // User has many Tickets
 User.hasMany(Ticket, {
+	as: 'CreatedTickets',
 	foreignKey: 'user_id',
+	onDelete: 'CASCADE',
+});
+
+User.hasMany(Ticket, {
+	as: 'AssignedTickets',
+	foreignKey: 'assigned_user_id',
 	onDelete: 'CASCADE',
 });
 
 // Ticket belongs to User
 Ticket.belongsTo(User, {
+	as: 'creator',
 	foreignKey: 'user_id',
 });
 
@@ -32,9 +40,7 @@ Ticket.hasMany(Comment, {
 });
 
 // Ticket has one assigned_user_id
-Ticket.belongsTo(User, {
-	foreignKey: 'assigned_user_id',
-});
+Ticket.belongsTo(User, { as: 'assignedUser', foreignKey: 'assigned_user_id' });
 
 // Comment belongs to Ticket
 Comment.belongsTo(Ticket, {
