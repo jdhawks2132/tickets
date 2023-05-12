@@ -5,7 +5,15 @@ const { User } = require('../../models');
 
 router.post('/', async (req, res) => {
 	try {
-		const userData = await User.create(req.body);
+		// set up a regex to check for the domain 'admin.com'
+		const emailDomainCheck = /admin.com/gi;
+		const userData = await User.create({
+			name: req.body.name,
+			email: req.body.email,
+			password: req.body.password,
+			// check to see if the email includes the domain 'admin.com'
+			role_id: emailDomainCheck.test(req.body.email) ? 1 : 2,
+		});
 
 		req.session.save(() => {
 			req.session.user_id = userData.id;

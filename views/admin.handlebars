@@ -1,0 +1,24 @@
+{{! render all the current users }}
+<ul>
+	{{#each users as |user|}}
+		<li>
+			<h2>
+				{{user.name}}
+			</h2>
+			<p>
+				{{user.email}}
+			</p>
+			<p>
+				Is Admin?
+				{{#if (eq user.role_id 1)}}
+					Yes
+				{{else}}
+					No
+				{{/if}}
+			</p>
+			<a href='/admin/update/{{user.id}}'>
+				Update User
+			</a>
+		</li>
+	{{/each}}
+</ul>

@@ -1,6 +1,14 @@
-{{! render all the tickets in an unordered list for now }}
+<h1>
+	Dashboard
+</h1>
+
+<h3>
+	Welcome Back, {{user.name}}
+</h3>
+
 <ul>
 	{{log tickets}}
+	{{log user}}
 	{{#each tickets as |ticket|}}
 		<li>
 			<h2>
