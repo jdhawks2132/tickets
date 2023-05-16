@@ -36,7 +36,8 @@ router.post('/', withAuth, async (req, res) => {
 		const ticketData = await Ticket.create(req.body);
 		res.status(200).json(ticketData);
 	} catch (err) {
-		res.status(400).json(err);
+		console.error('Error:', err); // Log the error object
+		res.status(500).json({ message: 'Something went wrong!' });
 	}
 });
 
@@ -61,17 +62,19 @@ router.put('/:id', withAuth, async (req, res) => {
 // Delete ticket ONLY IF the user is the owner of the ticket or assigned_user of the ticket
 router.delete('/:id', withAuth, async (req, res) => {
 	try {
-		const ticketData = await Ticket.destroy({
+		const ticketData = await Ticket.findOne({
 			where: {
 				id: req.params.id,
 			},
 		});
+
 		if (!ticketData) {
 			res.status(404).json({ message: 'No ticket found with this id!' });
 			return;
 		}
+
 		if (
-			ticketData.user_id !== req.session.user_id ||
+			ticketData.user_id !== req.session.user_id &&
 			ticketData.assigned_user_id !== req.session.user_id
 		) {
 			res
@@ -79,7 +82,14 @@ router.delete('/:id', withAuth, async (req, res) => {
 				.json({ message: 'You are not authorized to delete this ticket!' });
 			return;
 		}
-		res.status(200).json(ticketData);
+
+		await Ticket.destroy({
+			where: {
+				id: req.params.id,
+			},
+		});
+
+		res.status(200).json({ message: 'Ticket deleted successfully!' });
 	} catch (err) {
 		res.status(500).json(err);
 	}
