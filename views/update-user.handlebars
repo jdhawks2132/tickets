@@ -1,2 +1,108 @@
-{{!-- user update form --}}
+{{! const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
 
+class User extends Model {
+	checkPassword(loginPw) {
+		return bcrypt.compareSync(loginPw, this.password);
+	}
+}
+
+User.init(
+	{
+		id: {
+			type: DataTypes.INTEGER,
+			allowNull: false,
+			primaryKey: true,
+			autoIncrement: true,
+		},
+		name: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
+		email: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			unique: true,
+			validate: {
+				isEmail: true,
+			},
+		},
+		password: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			validate: {
+				len: [8],
+			},
+		},
+		role_id: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: 'role',
+				key: 'id',
+			},
+		},
+	},
+	{
+		hooks: {
+			beforeCreate: async (newUserData) => {
+				newUserData.password = await bcrypt.hash(newUserData.password, 10);
+				return newUserData;
+			},
+			beforeUpdate: async (updatedUserData) => {
+				updatedUserData.password = await bcrypt.hash(
+					updatedUserData.password,
+					10
+				);
+				return updatedUserData;
+			},
+		},
+		sequelize,
+		timestamps: false,
+		freezeTableName: true,
+		underscored: true,
+		modelName: 'user',
+	}
+);
+
+module.exports = User; }}
+
+{{! user update form }}
+
+<div id='update-user' data-id='{{user.id}}'>
+	<form>
+		{{log user}}
+		<label for='name'>
+			Name:
+		</label>
+		<input type='text' id='name' name='name' value='{{user.name}}' />
+		<label for='email'>
+			Email:
+		</label>
+		<input type='text' id='email' name='email' value='{{user.email}}' />
+
+		<label for='role'>
+			Role:
+		</label>
+		<select id='role' name='role'>
+			<option value='{{userRole.id}}' selected>
+				{{userRole.role_name}}
+			</option>
+			{{#each roles as |role|}}
+				{{#unless (eq role.id userRole.id)}}
+					<option value='{{role.id}}'>
+						{{role.role_name}}
+					</option>
+				{{/unless}}
+			{{/each}}
+		</select>
+		<button type='submit'>
+			Update User
+		</button>
+	</form>
+	<button id='delete-user-btn' data-id='{{user.id}}'>
+		Delete User
+	</button>
+</div>
+
+<script src='/js/adminUpdate.js'></script>

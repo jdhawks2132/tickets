@@ -33,17 +33,17 @@ router.get('/dashboard', withAuth, async (req, res) => {
 			],
 		});
 
-		const userData = await User.findByPk(req.session.user_id, {
+		const currentUserData = await User.findByPk(req.session.user_id, {
 			attributes: { exclude: ['password'] },
 		});
 
 		const tickets = ticketData.map((ticket) => ticket.get({ plain: true }));
-		const user = userData.get({ plain: true });
+		const currentUser = currentUserData.get({ plain: true });
 
 		res.render('dashboard', {
 			tickets,
 			loggedIn: req.session.logged_in,
-			user,
+			currentUser,
 		});
 	} catch (err) {
 		res.status(500).json(err);
@@ -62,15 +62,15 @@ router.get('/admin', withAuth, async (req, res) => {
 		});
 
 		const users = userData.map((user) => user.get({ plain: true }));
-		const user = currentUserData.get({ plain: true });
+		const currentUser = currentUserData.get({ plain: true });
 
-		if (user.role_id !== 1) {
+		if (currentUser.role_id !== 1) {
 			res.redirect('/dashboard');
 			return;
 		}
 		res.render('admin', {
 			users,
-			user,
+			currentUser,
 			loggedIn: req.session.logged_in,
 		});
 	} catch (err) {
@@ -89,6 +89,15 @@ router.get('/admin/update/:id', withAuth, async (req, res) => {
 		const currentUserData = await User.findByPk(req.session.user_id, {
 			attributes: { exclude: ['password'] },
 		});
+
+		const userRoleData = await Role.findByPk(user.role_id);
+		const userRole = userRoleData.get({ plain: true });
+
+		const roleData = await Role.findAll();
+		// omit the role that the user already has
+		const cleanRoles = roleData.filter((role) => role.id !== user.role_id);
+		const roles = cleanRoles.map((role) => role.get({ plain: true }));
+
 		const currentUser = currentUserData.get({ plain: true });
 		if (currentUser.role_id !== 1) {
 			res.redirect('/dashboard');
@@ -98,6 +107,8 @@ router.get('/admin/update/:id', withAuth, async (req, res) => {
 			user,
 			currentUser,
 			loggedIn: req.session.logged_in,
+			userRole,
+			roles,
 		});
 	} catch (err) {
 		res.status(500).json(err);

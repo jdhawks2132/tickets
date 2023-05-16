@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Ticket } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 // POST /api/users
 
@@ -63,7 +64,7 @@ router.post('/login', async (req, res) => {
 
 // POST /api/users/logout
 
-router.post('/logout', (req, res) => {
+router.post('/logout', withAuth, (req, res) => {
 	if (req.session.logged_in) {
 		req.session.destroy(() => {
 			res.status(204).end();
@@ -73,4 +74,53 @@ router.post('/logout', (req, res) => {
 	}
 });
 
+// put /api/users/:id
+
+router.put('/:id', withAuth, async (req, res) => {
+	try {
+		const userData = await User.update(req.body, {
+			where: { id: req.params.id },
+		});
+		if (!userData) {
+			res.status(404).json({ message: 'No user found with this id!' });
+			return;
+		}
+		res.status(200).json(userData);
+	} catch (err) {
+		res.status(500).json(err);
+	}
+});
+
+// delete /api/users/:id
+
+router.delete('/:id', withAuth, async (req, res) => {
+	console.log('hi from delete');
+	console.log(req.params.id);
+	try {
+		const userIdToDelete = req.params.id;
+		const newAssignedUserId = 3;
+
+		const updatedTickets = await Ticket.update(
+			{ assigned_user_id: newAssignedUserId },
+			{
+				where: { assigned_user_id: userIdToDelete },
+			}
+		);
+
+		console.log('Updated tickets:', updatedTickets);
+
+		const userData = await User.destroy({
+			where: { id: userIdToDelete },
+		});
+
+		if (!userData) {
+			res.status(404).json({ message: 'No user found with this id!' });
+			return;
+		}
+		res.status(200).json(userData);
+	} catch (err) {
+		console.error('Error:', err); // Log the error object
+		res.status(500).json({ message: 'Something went wrong!' });
+	}
+});
 module.exports = router;
