@@ -10,17 +10,17 @@
         {{ticket.title}}
       {{/if}}
     </h2>
-    <p>
+    
       {{#if enabled}}
         <textarea id="ticket-description">{{ticket.description}}</textarea>
       {{else}}
-        {{ticket.description}}
+        <p>{{ticket.description}}</p>
       {{/if}}
-    </p>
+    
     <p>
       Created by: {{ticket.creator.name}}
     </p>
-    <p>
+    
       {{#if enabled}}
         <label for="status">Status:</label>
         <select id="ticket-status" name="status">
@@ -29,9 +29,9 @@
           <option value="Closed" {{#if (eq ticket.status "Closed")}}selected{{/if}}>Closed</option>
         </select>
       {{else}}
-        Status: {{ticket.status}}
+       <p> Status: {{ticket.status}}</p>
       {{/if}}
-    </p>
+
     <p>
       Priority: {{ticket.priority}}
     </p>
@@ -39,23 +39,27 @@
       Assigned to: {{ticket.assignedUser.name}}
     </p>
     {{! each ticket.comments in a ul }}
-    <ul>
+    <ul class="comment-list">
       {{#each ticket.comments as |comment|}}
-        <li data-id='{{comment.user_id}}'>
-          {{comment.comment_text}} - {{comment.user.name}}
-          {{#if (eq comment.user_id ../currentUser.id)}}
-            <button class='delete-comment-btn' data-id='{{comment.id}}'>
-              Delete
-            </button>
-          {{else}}
-            <button
-              class='delete-comment-btn'
-              data-id='{{comment.id}}'
-              disabled
-            >
-              Delete
-            </button>
-          {{/if}}
+        <li class="comment-list-item" data-id='{{comment.user_id}}'>
+          <div class="comment">
+            {{comment.comment_text}} - {{comment.user.name}}
+          </div>
+          <div class="comment-action">
+            {{#if (eq comment.user_id ../currentUser.id)}}
+              <button class='delete-comment-btn' data-id='{{comment.id}}'>
+                Delete
+              </button>
+            {{else}}
+              <button
+                class='delete-comment-btn'
+                data-id='{{comment.id}}'
+                disabled
+              >
+                Delete
+              </button>
+            {{/if}}
+          </div>
         </li>
       {{/each}}
     </ul>
@@ -71,13 +75,16 @@
       </button>
     </form>
   </div>
-  <button id='delete-ticket-btn' data-id='{{ticket.id}}' {{#if enabled}}'' {{else}} disabled{{/if}}>
-    Delete Ticket
-  </button>
 
-	<button id='update-ticket-btn' data-id='{{ticket.id}}'{{#if enabled}}'' {{else}} disabled{{/if}}>
-		Update Ticket
-	</button>
+  <div class="ticket-detail-buttons">
+    <button id='delete-ticket-btn' data-id='{{ticket.id}}' {{#if enabled}}'' {{else}} disabled{{/if}}>
+      Delete Ticket
+    </button>
+
+    <button id='update-ticket-btn' data-id='{{ticket.id}}'{{#if enabled}}'' {{else}} disabled{{/if}}>
+      Update Ticket
+    </button>
+  </div>
 
 </div>
 
