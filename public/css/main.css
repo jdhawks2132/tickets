@@ -4,9 +4,9 @@
 
 /* Css Variables Settings */
 :root {
-	--main-color: #1c1c3a;
-	--secondary-color: #2c2c4a;
-	--accent-color: #ff00ff;
+	--main-color: #0e0e0e;
+	--secondary-color: #000;
+	--accent-color: #f700ff;
 	--basic-text: #c0c0c0;
 	--header-color: #00ff00;
 }
@@ -142,6 +142,9 @@ form {
 	background: var(--secondary-color);
 	width: 500px;
 	padding: 20px;
+	margin: 0 auto;
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 form > button {
@@ -249,7 +252,7 @@ label {
 .ticket-detail {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
+
 	align-items: center;
 	width: 90%;
 	margin: 0 auto;
@@ -298,4 +301,57 @@ label {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+}
+
+@media (max-width: 768px) {
+	.ticket-card-container {
+		justify-content: center;
+	}
+	.ticket-card {
+		width: 90%;
+	}
+	.admin-container {
+		justify-content: center;
+	}
+	.admin-card {
+		width: 90%;
+	}
+	.ticket-detail {
+		width: 100%;
+	}
+	#ticket-detail-card {
+		width: 90%;
+	}
+	#ticket-status {
+		width: 100%;
+	}
+	.comment-list-item {
+		width: 100%;
+	}
+
+	#new-ticket-form {
+		width: 90%;
+	}
+
+	.comment-form {
+		width: 100%;
+	}
+	input {
+		width: 100%;
+	}
+
+	form {
+		width: 90%;
+	}
+
+	/* mobile nav */
+	nav {
+		flex-direction: column;
+	}
+	nav > ul {
+		flex-direction: column;
+	}
+	nav > ul > li {
+		margin: 10px 0;
+	}
 }

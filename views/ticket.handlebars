@@ -5,14 +5,14 @@
   <div id='ticket-detail-card' data-id='{{ticket.id}}'>
     <h2>
       {{#if enabled}}
-        <input id="ticket-title" type="text" value="{{ticket.title}}" />
+        <input aria-label='ticket title' id="ticket-title" type="text" value="{{ticket.title}}" />
       {{else}}
         {{ticket.title}}
       {{/if}}
     </h2>
     
       {{#if enabled}}
-        <textarea id="ticket-description">{{ticket.description}}</textarea>
+        <textarea aria-label='ticket description' id="ticket-description">{{ticket.description}}</textarea>
       {{else}}
         <p>{{ticket.description}}</p>
       {{/if}}
@@ -22,7 +22,7 @@
     </p>
     
       {{#if enabled}}
-        <label for="status">Status:</label>
+        <label for="ticket-status">Status:</label>
         <select id="ticket-status" name="status">
           <option value="Open" {{#if (eq ticket.status "Open")}}selected{{/if}}>Open</option>
           <option value="In Progress" {{#if (eq ticket.status "In Progress")}}selected{{/if}}>In Progress</option>
