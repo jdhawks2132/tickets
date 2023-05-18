@@ -171,6 +171,7 @@ textarea {
 	margin: 10px 0;
 	padding: 10px;
 	height: 80px;
+	width: 90%;
 }
 
 select {
@@ -337,7 +338,8 @@ label {
 		width: 100%;
 	}
 	input {
-		width: 100%;
+		width: 90%;
+		padding: 5px;
 	}
 
 	form {
