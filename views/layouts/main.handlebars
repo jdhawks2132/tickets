@@ -1,56 +1,64 @@
 <!-- main.handlebars -->
+
 <html lang='en'>
 	<head>
-		<!-- head content here -->
+		<meta charset='UTF-8' />
+		<meta http-equiv='X-UA-Compatible' content='IE=edge' />
+		<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+		<link rel='stylesheet' href='/css/main.css' />
+		<title>
+			TicketHawk
+		</title>
 	</head>
 	<body>
-		<header>
-			<nav>
-				<ul>
-					<li>
-						<a href='/'>
-							Home
-						</a>
-					</li>
-
-					{{#if loggedIn}}
-						<!-- Show additional links when user is logged in -->
-						<li>
-							<a href='/dashboard'>
-								Dashboard
-							</a>
-						</li>
-						{{#if (eq currentUser.role_id 1)}}
+		<div class='page-wrapper'>
+			<header>
+				<nav>
+					<div class='brand'>
+						<h1>
+							TicketHawk
+						</h1>
+					</div>
+					<ul>
+						{{#if loggedIn}}
+							<!-- Show additional links when user is logged in -->
 							<li>
-								<a href='/admin'>
-									Admin
+								<a href='/dashboard'>
+									Dashboard
+								</a>
+							</li>
+							{{#if (eq currentUser.role_id 1)}}
+								<li>
+									<a href='/admin'>
+										Admin
+									</a>
+								</li>
+							{{/if}}
+							<li>
+								<button class='no-button' id='logout'>
+									Logout
+								</button>
+							</li>
+						{{else}}
+							<!-- Show login and signup links when user is not logged in -->
+							<li>
+								<a href='/login'>
+									Login
 								</a>
 							</li>
 						{{/if}}
-						<li>
-							<button class='no-button' id='logout'>
-								Logout
-							</button>
-						</li>
-					{{else}}
-						<!-- Show login and signup links when user is not logged in -->
-						<li>
-							<a href='/login'>
-								Login
-							</a>
-						</li>
-					{{/if}}
-				</ul>
-			</nav>
-		</header>
-		<main>
-			{{{body}}}
-		</main>
-		<footer>
-			<p>
-				&copy; 2023 - Tickets
-			</p>
-		</footer>
+					</ul>
+				</nav>
+			</header>
+			<main>
+				{{{body}}}
+			</main>
+			<footer>
+				<p>
+					&copy; 2023 - TicketHawk
+				</p>
+			</footer>
+		</div>
 		{{#if loggedIn}}
 			<script src='/js/logout.js'></script>
 		{{/if}}

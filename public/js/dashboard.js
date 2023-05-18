@@ -1,64 +1,17 @@
-{
-	/* <div>
-	<h2>
-		New Ticket
-	</h2>
-	{{! new ticket form }}
-	<form>
-		<label for='title'>
-			Title:
-		</label>
-		<input type='text' id='title' name='title' />
-		<label for='description'>
-			Description:
-		</label>
-		<textarea id='description' name='description'></textarea>
-		<label for='status'>
-			Status:
-		</label>
-		<select id='status' name='status'>
-			<option value='Open'>
-				Open
-			</option>
-			<option value='In Progress'>
-				In Progress
-			</option>
-			<option value='Closed'>
-				Closed
-			</option>
-		</select>
-		<label for='priority'>
-			Priority:
-		</label>
-		<select id='priority' name='priority'>
-			<option value='1'>
-				1
-			</option>
-			<option value='2'>
-				2
-			</option>
-			<option value='3'>
-				3
-			</option>
-		</select>
-		<label for='assigned_user_id'>
-			Assigned User:
-		</label>
-		<select id='assigned_user_id' name='assigned_user_id'>
-			{{#each users as |user|}}
-				<option value='{{user.id}}'>
-					{{user.name}}
-				</option>
-			{{/each}}
-		</select>
-		<button type='submit'>
-			Create Ticket
-		</button>
-	</form>
-</div> */
-}
+const newTicketSpan = document.querySelector('#new-ticket-span');
 
-console.log('hi from dashboard.js');
+const handleToggleNewTicketFormContainer = () => {
+	const newTicketFormContainer = document.querySelector(
+		'#new-ticket-form-container'
+	);
+	if (newTicketFormContainer.classList.contains('hide')) {
+		newTicketFormContainer.classList.remove('hide');
+		newTicketSpan.textContent = '-';
+	} else {
+		newTicketFormContainer.classList.add('hide');
+		newTicketSpan.textContent = '+';
+	}
+};
 
 const newTicketFormHandler = async (event) => {
 	event.preventDefault();
@@ -98,3 +51,4 @@ const newTicketFormHandler = async (event) => {
 };
 
 document.addEventListener('submit', newTicketFormHandler);
+newTicketSpan.addEventListener('click', handleToggleNewTicketFormContainer);

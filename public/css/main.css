@@ -1,22 +1,36 @@
 /* sanitize styles */
+/* import fira code from google fonts*/
+@import url('https://fonts.googleapis.com/css?family=Fira+Code:400,500,700');
+
+/* Css Variables Settings */
+:root {
+	--main-color: #1c1c3a;
+	--secondary-color: #2c2c4a;
+	--accent-color: #ff00ff;
+	--basic-text: #c0c0c0;
+	--header-color: #00ff00;
+}
 
 body {
-	background-color: #fff;
+	background-color: var(--main-color);
 	color: #333;
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: 'Fira Code', monospace;
 	font-size: 14px;
 	line-height: 1.42857;
 	margin: 0;
 }
 
 a {
-	color: #08c;
+	color: var(--accent-color);
 	text-decoration: none;
 }
 
 a:hover {
-	color: #005580;
 	text-decoration: underline;
+}
+
+a:visited {
+	color: var(--accent-color);
 }
 
 h1,
@@ -25,7 +39,7 @@ h3,
 h4,
 h5,
 h6 {
-	color: #333;
+	color: var(--header-color);
 	font-family: inherit;
 	font-weight: 500;
 	line-height: 1.1;
@@ -36,4 +50,178 @@ ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
+}
+
+p,
+label,
+li {
+	color: var(--basic-text);
+}
+
+input,
+button,
+select,
+textarea {
+	font-family: inherit;
+	font-size: inherit;
+	line-height: inherit;
+}
+
+button {
+	cursor: pointer;
+	outline: none;
+	border: none;
+	padding: 10px 20px;
+	background: var(--header-color);
+}
+
+button:hover {
+	background: var(--accent-color);
+}
+
+button:disabled {
+	cursor: not-allowed;
+	background: var(--secondary-color);
+	color: var(--basic-text);
+}
+
+.hide {
+	display: none;
+}
+
+nav {
+	background: var(--secondary-color);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	padding: 20px;
+}
+
+nav > ul {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+nav > ul > li {
+	margin: 0 10px;
+}
+
+nav > ul > li > a {
+	font-size: 18px;
+}
+
+nav > ul > li > a:hover,
+nav > ul > li > a:focus {
+	text-decoration: none;
+}
+
+.page-wrapper {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+main {
+	padding: 40px;
+	flex-grow: 1;
+}
+
+footer {
+	background: var(--secondary-color);
+	padding: 20px;
+	text-align: center;
+}
+
+.masthead {
+	text-align: center;
+	margin: 30px 0;
+}
+
+.ticket-card-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.ticket-card {
+	background: var(--secondary-color);
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	margin: 10px;
+	padding: 20px;
+	width: 300px;
+}
+
+#new-ticket-span {
+	background: var(--secondary-color);
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	margin: 10px auto;
+	padding: 4px 8px;
+	cursor: pointer;
+}
+
+#new-ticket-span:hover {
+	color: var(--accent-color);
+}
+#new-ticket-form {
+	background: var(--secondary-color);
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	margin: 10px auto;
+	padding: 20px;
+	width: 500px;
+	display: flex;
+	flex-direction: column;
+}
+
+#new-ticket-form > label {
+	margin: 10px 0;
+}
+
+#new-ticket-form > input {
+	margin: 10px 0;
+	padding: 10px;
+}
+
+#new-ticket-form > textarea {
+	margin: 10px 0;
+	padding: 10px;
+	height: 200px;
+}
+
+#new-ticket-form > select {
+	margin: 10px 0;
+	width: 33%;
+	height: 40px;
+	padding: 10px;
+}
+
+#new-ticket-form > button {
+	margin: 10px 0;
+	background: var(--accent-color);
+	color: var(--main-color);
+	padding: 10px;
+	font-size: 16px;
+	border: none;
+}
+
+.admin-container {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.admin-card {
+	background: var(--secondary-color);
+	border-radius: 5px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	margin: 10px;
+	padding: 20px;
+	width: 300px;
 }
